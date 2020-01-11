@@ -1,0 +1,89 @@
+---
+title: "Week 52, 2019 - Socks"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(Rfast)
+```
+
+From Kathy Bischoping comes a question we've all asked ourselves at one time or another:
+
+I have 10 pairs of socks in a drawer. Each pair is distinct from another and consists of two matching socks. Alas, I'm negligent when it comes to folding my laundry, and so the socks are not folded into pairs. This morning, fumbling around in the dark, I pull the socks out of the drawer, randomly and one at a time, until I have a matching pair of socks among the ones I've removed from the drawer.
+
+On average, how many socks will I pull out of the drawer in order to get my first matching pair?
+
+[Here is this week's riddler](https://fivethirtyeight.com/features/can-you-find-a-matching-pair-of-socks/)
+```{r}
+#here are my socks
+socks <- rep(LETTERS[1:10], 2)
+
+#set up iteration
+set.seed(1)
+iter <- 1e4
+number_of_socks <- rep(NA, iter)
+
+#create a function that will count number of 
+find_sock_pair <- function() {
+  # do all possible draws of socks
+  sock_samples <- sample(socks, length(socks))
+
+  #initial draw of a sock
+  i <- 1
+
+  #check until we have at least 2 socks
+  while(!2 %in% Rfast::Table(sock_samples[1:(i+1)])) {i <- i + 1}
+  
+  return(i + 1)
+}
+
+#run the oteration
+for(draw in 1:iter) {
+  #add number of draws for each iteration
+  number_of_socks[draw] <- find_sock_pair() #add one as we count the first draw as well
+}
+
+#show
+summary(number_of_socks)
+qplot(as.factor(number_of_socks)) +
+  labs(title = "Number of socks before I find a matching pair", 
+       x = "Number of socks",
+       y = "Frequency")
+```
+
+On average I have to pull out 5.7 socks from the drawer to find a matching pair.
+
+
+Instead of 10 pairs of socks, what if I have some large number N pairs of socks?
+*Warning: This takes a few minutes to run*
+```{r}
+# set up objects for iteration
+iter <- 100 #to prevent from running too long we will take a smaller sample and draw a trend line
+number_of_pairs <- seq(10, 1000, by = 5)
+mean_number_of_socks <- rep(NA, length(number_of_pairs))
+number_of_socks <- rep(list(rep(NA, iter)), length(number_of_pairs))
+
+for(j in seq_along(number_of_pairs)) {
+  #here are my socks
+  socks <- rep(1:number_of_pairs[j], 2)
+  
+  
+ for(draw in 1:iter) {
+    #add 
+    number_of_socks[[j]][draw] <- find_sock_pair() ##find number of socks
+  }
+  
+  mean_number_of_socks[j] <- mean(number_of_socks[[j]])
+}
+
+# plot
+qplot(number_of_pairs, mean_number_of_socks) + 
+  geom_smooth(se = FALSE) +
+  labs(title = "The effect of increasing number of pairs",
+       x = "Number of pairs",
+       y = "Number of socks until I have a match")
+```
+
+The number of socks I need to pull out doesn't grow linearly...there is a diminishing return...
