@@ -1,0 +1,92 @@
+---
+title: "Week 2 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+library(rvest)
+library(data.table)
+library(parallel)
+setDTthreads(3)
+```
+
+In Jewish study, "Gematria" is an alphanumeric code where words are assigned numerical values based on their letters. We can do the same in English, assigning 1 to the letter A, 2 to the letter B, and so on, up to 26 for the letter Z. The value of a word is then the sum of the values of its letters. For example, RIDDLER has an alphanumeric value of 70, since R + I + D + D + L + E + R becomes 18 + 9 + 4 + 4 + 12 + 5 + 18 = 70.
+
+But what about the values of different numbers themselves, spelled out as words? The number 1 (ONE) has an alphanumeric value of 15 + 14 + 5 = 34, and 2 (TWO) has an alphanumeric value of 20 + 23 + 15 = 58. Both of these values are bigger than the numbers themselves.
+
+Meanwhile, if we look at larger numbers, 1,417 (ONE THOUSAND FOUR HUNDRED SEVENTEEN) has an alphanumeric value of 379, while 3,140,275 (THREE MILLION ONE HUNDRED FORTY THOUSAND TWO HUNDRED SEVENTY FIVE) has an alphanumeric value of 718. These values are much smaller than the numbers themselves.
+
+If we consider all the whole numbers that are less than their alphanumeric value, what is the largest of these numbers?
+
+```{r}
+#create a function that will create alphanumeric for a word
+alphanumeric <- function(word) {
+  if(!is.character(word)) stop("must be a character")
+  
+  #put to lower
+  word <- tolower(word)
+  
+  #remove space
+  word <- trimws(word) 
+  word <- gsub(pattern = " ", replacement = "", x = word)
+
+
+
+  total <- sapply(strsplit(word, "")[[1]],
+                  function(letter) grep(pattern = letter,
+                                        x = letters,
+                                        value = FALSE))
+  total <- sum(total)
+  
+  return(total)
+}
+
+# extract numbers written as words
+numbers <- read_html("https://www.englishclub.com/kids/numbers-chart.htm") %>%
+  html_nodes(".ec-table") %>%
+  html_table() %>%
+  .[[1]] %>%
+  apply(., 1, c) %>%
+  as.vector() %>%
+  gsub(pattern = "[0-9]", replacement = "") %>%
+  gsub(pattern = "-", replacement = "")
+ 
+#add till 999
+hundrets <- paste0(numbers[1:9], "hundred") %>%
+  sapply(., function(x) paste0(x,c("", numbers[1:99]))) %>%
+  as.vector()
+
+thousands <- paste0(c(numbers[1:99], hundrets), "thousand") %>%
+    sapply(., function(x) paste0(x, c("", numbers[1:99], hundrets))) %>%
+  as.vector()
+
+# # good luck with that it crushed on 8GB or RAM
+# millions <- paste0(c(numbers[1:99], hundrets), "million") %>%
+#     sapply(., function(x) paste0(x, c("", numbers[1:99], hundrets, thousands))) %>%
+#   as.vector()
+
+
+
+# create a df and add alphanumeric value of each number
+score <- data.table(letter = c(numbers[1:99], hundrets, thousands)) 
+score[, number := 1:nrow(score)]
+# score[, alphanumeric := sapply(letter, alphanumeric)]
+
+#parallel to makespeed up the process
+cl <- makeCluster(3)
+score$alphanumeric <- parSapply(cl, score$letter, alphanumeric)
+
+#plot
+with(score, plot(number, alphanumeric, 
+                 pch = 19, 
+                 ylim = c(0, max(alphanumeric)), main = "Relationship between Alphanumeric and its Number",
+                 col = ifelse(score$number < score$alphanumeric, 
+                              "coral1", 
+                              scales::alpha("black", alpha = 0.1)))
+     )
+
+tail(score[number < alphanumeric & order(number, decreasing = FALSE), ], 1)
+```
+It i 279.
