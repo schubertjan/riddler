@@ -1,0 +1,11 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","library(ggplot2)"
+"2","package ‘ggplot2’ was built under R version 3.6.2"
+"0","library(Rfast)"
+"2","package ‘Rfast’ was built under R version 3.6.2"
+"2","Loading required package: Rcpp
+"
+"2","package ‘Rcpp’ was built under R version 3.6.2"
+"2","Loading required package: RcppZiggurat
+"
+"2","package ‘RcppZiggurat’ was built under R version 3.6.2"

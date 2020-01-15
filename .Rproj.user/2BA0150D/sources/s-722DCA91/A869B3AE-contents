@@ -60,11 +60,7 @@ Instead of 10 pairs of socks, what if I have some large number N pairs of socks?
 *Warning: This takes a few minutes to run*
 ```{r}
 # set up objects for iteration
-<<<<<<< HEAD
-iter <- 150 #to prevent from running too long we will take a smaller sample and draw a trend line
-=======
 iter <- 100 #to prevent from running too long we will take a smaller sample and draw a trend line
->>>>>>> 6c2bede29fb2a74ca23efe5181d7163c80a9650f
 number_of_pairs <- seq(10, 1000, by = 5)
 mean_number_of_socks <- rep(NA, length(number_of_pairs))
 number_of_socks <- rep(list(rep(NA, iter)), length(number_of_pairs))

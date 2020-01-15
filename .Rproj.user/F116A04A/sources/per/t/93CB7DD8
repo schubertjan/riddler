@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578644528100.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3025008666",
+    "id" : "93CB7DD8",
+    "lastKnownWriteTime" : 1578655044,
+    "last_content_update" : 1578655059928,
+    "path" : "~/github/riddler/scr/week52_2019.Rmd",
+    "project_path" : "scr/week52_2019.Rmd",
+    "properties" : {
+        "cursorPosition" : "25,32",
+        "last_setup_crc32" : "B38078E81220e10a",
+        "scrollLine" : "14"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

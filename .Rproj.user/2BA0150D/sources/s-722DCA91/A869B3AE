@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578745487326.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A869B3AE",
+    "lastKnownWriteTime" : 1578745267,
+    "last_content_update" : 1578745879858,
+    "path" : "~/riddler/scr/week52_2019.Rmd",
+    "project_path" : "scr/week52_2019.Rmd",
+    "properties" : {
+        "cursorPosition" : "80,6",
+        "last_setup_crc32" : "722DCA911220e10a",
+        "scrollLine" : "55"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
