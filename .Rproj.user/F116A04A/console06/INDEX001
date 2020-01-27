@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-[{"allow_restart":true,"alt_buffer":false,"autoclose":0,"buffered_output":"","caption":"Terminal 1","channel_id":"7943","channel_mode":1,"child_procs":true,"cols":89,"cwd":"","exit_code":null,"handle":"B369B5DF","interaction_mode":2,"max_output_lines":1000,"restarted":false,"rows":20,"shell_type":1,"show_on_output":false,"terminal_sequence":1,"title":"","track_env":false,"zombie":false}]
-=======
-[]
->>>>>>> 6c2bede29fb2a74ca23efe5181d7163c80a9650f
+[{"allow_restart":true,"alt_buffer":false,"autoclose":1,"buffered_output":"\n\n\n\n\n\n\n\n\n","caption":"Terminal 1","channel_id":"4759","channel_mode":1,"child_procs":true,"cols":102,"cwd":"","exit_code":null,"handle":"B369B5DF","interaction_mode":2,"max_output_lines":1000,"restarted":true,"rows":59,"shell_type":1,"show_on_output":false,"terminal_sequence":1,"title":":/c/Users/schubertj/OneDrive - Kantar/Documents/github/riddler","track_env":false,"zombie":false}]

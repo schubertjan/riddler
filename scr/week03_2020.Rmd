@@ -1,0 +1,208 @@
+---
+title: "Week 3 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+The Riddler Football League (RFL) playoffs are upon us! As the coach, you've devised a new strategy for scoring after a touchdown. Your team will line up 2 yards away from the goal line in such a way that it could attempt either a 1-point conversion or a 2-point conversion. (Unlike other football leagues, the distance is the same for both types of conversion, and you need not announce which you'll be attempting.) Your opponent can only properly defend against one of those two possibilities, so they'll have to guess.
+
+If you attempt a 1-point conversion and the other team defends against it properly, you'll score 90 percent of the time. If they don't defend it properly, you'll score 100 percent of the time.
+
+If you instead attempt a 2-point conversion and the other team defends against it properly, you'll score 40 percent of the time. If they don't defend it properly, you'll score 60 percent of the time.
+
+To tell your team which they should attempt, your team's offensive coordinator will communicate to your team's captain the probability with which they should attempt each. For example, the coordinator might say: "Go for 1 with a 51 percent chance, and go for 2 with a 49 percent chance." Using a random number generator, the captain will then ultimately decide to go for 1 point or 2 points. (Naturally, every athlete in the RFL has a random number generator handy.)
+
+However, given all the spying that occurs in the RFL these days, you can assume that the offensive coordinator's message will also be heard by your opponent — that means the defense knows the exact probability with which you'll attempt either conversion. Your opponent also knows the probability of you scoring in each of the four scenarios listed above.
+
+With all that said, what strategy will maximize the average number of points you'll score (i.e., how often should your team go for 1 or 2)? What should your opponent's defensive strategy be? How many points will you score, on average, after each touchdown?
+
+
+```{r}
+#set up libraries
+set.seed(1)
+library(parallel)
+#do in parallel to make faster
+cl <- makeCluster(detectCores()-1)
+
+#probabilities with which we will score under different scenarios
+one_defend <- .9
+one_no_defend <- 1
+
+two_defend <- .4
+two_no_defend <- .6
+
+#sequence of possible probabilities
+prob_of_one <- seq(0, 1, 0.01)
+
+
+score_prob <- function(attack, defence) {
+  #define prob of scoring
+  one_defend <- .9
+  one_no_defend <- 1
+  two_defend <- .4
+  two_no_defend <- .6
+  
+  possible_outcomes <- c(11, 12, 21, 22)
+  prob <- c(.9, 1, .6, .4)
+  outcome <- as.numeric(paste0(attack, defence, collapse = ""))
+  
+  prob[possible_outcomes == outcome]
+}
+
+```
+
+
+#### Defence strategy 1: Defend conversion with higher probability (if 50:50 pick a random defence). All possible offense strategies
+```{r}
+n <- 100000
+points <- matrix(NA, ncol = length(prob_of_one), nrow = n)
+colnames(points) <- prob_of_one
+
+
+for(j in 1:length(prob_of_one)) {
+  prob <- prob_of_one[j]
+  #generate random numbers to go either for one point or two point attack
+  #0 is atack one point and 1 means attack two points  
+  attack_strategy <- rbinom(n = n, size = 1, prob = prob)
+  #recode to number of points a team can win from an attack
+  attack_strategy <- ifelse(attack_strategy == 0, 1, 2)
+  
+  
+  #define defence strategy
+  def_strategy <- rep(1, n)
+  if(prob > 0.5) def_strategy <- rep(2, n)
+  if(prob == 0.5) def_strategy <- sample(c(1,2), size = n, replace = TRUE)
+  
+  #average number of points
+  clusterExport(cl, c("score_prob", "attack_strategy", "def_strategy")) #define custom function
+  probs <- parSapply(cl = cl, X = c(1:n), FUN = function(i) {
+    score_prob(attack = attack_strategy[i], defence = def_strategy[i])
+  })
+
+  points[, j] <- probs * attack_strategy
+}
+
+barplot(colMeans(points), main = "Average number of points", sub = "Defence conversion with higher prob", cex.axis = .7)
+#max number of points scores
+colMeans(points)[which.max(colMeans(points))]
+#average numebr of points scored for all offensive strategies
+mean(colMeans(points))
+```
+It is best for the offensive team to play 49% attack one, 51% attack two. They will on average score 1.05 points.
+
+
+#### Defence strategy 2: Always defend against attack number one. All possible offense strategies
+```{r}
+points <- matrix(NA, ncol = length(prob_of_one), nrow = n)
+colnames(points) <- prob_of_one
+
+
+for(j in 1:length(prob_of_one)) {
+  prob <- prob_of_one[j]
+  #generate random numbers to go either for one point or two point attack
+  #0 is atack one point and 1 means attack two points  
+  attack_strategy <- rbinom(n = n, size = 1, prob = prob)
+  #recode to number of points a team can win from an attack
+  attack_strategy <- ifelse(attack_strategy == 0, 1, 2)
+  
+  
+  #define defence strategy
+  def_strategy <- rep(1, n)
+  
+  #average number of points
+  clusterExport(cl, c("score_prob", "attack_strategy", "def_strategy")) #define custom function
+  probs <- parSapply(cl = cl, X = c(1:n), FUN = function(i) {
+    score_prob(attack = attack_strategy[i], defence = def_strategy[i])
+  })
+
+  points[, j] <- probs * attack_strategy
+}
+
+barplot(colMeans(points), main = "Average number of points", sub = "Defence always against one", cex.axis = .7)
+#max number of points scores
+colMeans(points)[which.max(colMeans(points))]
+#average numebr of points scored for all offensive strategies
+mean(colMeans(points))
+```
+It is best for the offensive team to go with 100% for attack two as they will score 1.2 points on average (dah). 
+
+
+#### Defence strategy 3: Always defend against attack number two. All possible offense strategies
+```{r}
+points <- matrix(NA, ncol = length(prob_of_one), nrow = n)
+colnames(points) <- prob_of_one
+
+
+for(j in 1:length(prob_of_one)) {
+  prob <- prob_of_one[j]
+  #generate random numbers to go either for one point or two point attack
+  #0 is atack one point and 1 means attack two points  
+  attack_strategy <- rbinom(n = n, size = 1, prob = prob)
+  #recode to number of points a team can win from an attack
+  attack_strategy <- ifelse(attack_strategy == 0, 1, 2)
+  
+  
+  #define defence strategy
+  def_strategy <- rep(2, n)
+  
+  #average number of points
+  clusterExport(cl, c("score_prob", "attack_strategy", "def_strategy")) #define custom function
+  probs <- parSapply(cl = cl, X = c(1:n), FUN = function(i) {
+    score_prob(attack = attack_strategy[i], defence = def_strategy[i])
+  })
+  
+  points[, j] <- probs * attack_strategy
+}
+
+barplot(colMeans(points), main = "Average number of points", sub = "Defence always against two", cex.axis = .7)
+#max number of points scores
+colMeans(points)[which.max(colMeans(points))]
+#average numebr of points scored for all offensive strategies
+mean(colMeans(points))
+```
+It is best for the offensive team to go with 100% for attack one. They will score 1 point on average (dah).
+
+
+#### Defence strategy 4: Random. All possible offense strategies
+```{r}
+points <- matrix(NA, ncol = length(prob_of_one), nrow = n)
+colnames(points) <- prob_of_one
+
+for(j in 1:length(prob_of_one)) {
+  prob <- prob_of_one[j]
+  #generate random numbers to go either for one point or two point attack
+  #0 is atack one point and 1 means attack two points  
+  attack_strategy <- rbinom(n = n, size = 1, prob = prob)
+  #recode to number of points a team can win from an attack
+  attack_strategy <- ifelse(attack_strategy == 0, 1, 2)
+  
+  
+  #define defence strategy
+  def_strategy <- sample(c(1,2), size = n, replace = TRUE)
+  
+  #average number of points
+  clusterExport(cl, c("score_prob", "attack_strategy", "def_strategy")) #define custom function
+  probs <- parSapply(cl = cl, X = c(1:n), FUN = function(i) {
+    score_prob(attack = attack_strategy[i], defence = def_strategy[i])
+  })
+  
+  points[, j] <- probs * attack_strategy
+}
+
+barplot(colMeans(points), main = "Average number of points", sub = "Defence random", cex.axis = .7)
+#max number of points scores
+colMeans(points)[which.max(colMeans(points))]
+#average numebr of points scored for all offensive strategies
+mean(colMeans(points))
+
+stopCluster(cl)
+```
+It is best for the offensive team to go with 100% for attack two. They will score close to 1 point on average
+
+
+#### Summary
+For the offensive team (without knowing the defensive strategy) it is best to go with a 49:51 odds for 1-point conversion. That will guarantee 1.05 points on average. For the defensive team (without knowing the offensive strategy) it is best to pick a strategy based on the offensive strategy with the highest odds. Both teams can adjust their strategies depending on other team's moves in previous rounds.
