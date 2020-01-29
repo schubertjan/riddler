@@ -318,4 +318,80 @@ Total 107 (delta 30), reused 0 (delta 0)[0K
 $[0K[3G[?25h[0m[0K]0;:/c/Users/schubertj/OneDrive - Kantar/Documents/github/riddler[?25l
 [0;32mSchubertJ@KTPRG0361 [0;35m [0;33m~/OneDrive - Kantar/Documents/github/riddler[0;36m (master)[0m[0K
 [?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git a[0K[?25hd[0Kd[0K[11G[?25l$ git add -[0K[?25hA[0K[?25l
-[0K[?25h
+[0K[?25hwarning: LF will be replaced by CRLF in .Rhistory.[0K[?25l
+The file will have its original line endings in your working directory[0K
+[0K[?25hwarning: LF will be replaced by CRLF in .Rproj.user/F116A04A/pcs/source-pane.pper.[0K[?25l
+The file will have its original line endings in your working directory[0K
+warning: LF will be replaced by CRLF in .Rproj.user/F116A04A/pcs/windowlayoutstate.pper.[0K
+The file will have its original line endings in your working directory[0K
+[0K[?25hwarning: LF will be replaced by CRLF in .Rproj.user/F116A04A/pcs/workbench-pane.pper.[0K[?25l
+The file will have its original line endings in your working directory[0K
+warning: LF will be replaced by CRLF in .Rproj.user/F116A04A/sources/prop/5CD06531.[0K
+The file will have its original line endings in your working directory[0K
+[0K[?25hwarning: LF will be replaced by CRLF in .Rproj.user/F116A04A/sources/prop/BBA46A22.[0K[?25l
+The file will have its original line endings in your working directory[0K
+warning: LF will be replaced by CRLF in .Rproj.user/F116A04A/sources/prop/INDEX.[0K
+The file will have its original line endings in your working directory[0K
+[0K[?25hwarning: LF will be replaced by CRLF in .Rproj.user/shared/notebooks/paths.[0K[?25l
+The file will have its original line endings in your working directory[0K
+[0K[?25h[?25l
+[0;32mSchubertJ@KTPRG0361 [0;35m [0;33m~/OneDrive - Kantar/Documents/github/riddler[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git c[0K[?25ho[0Km[0Km[0Ki[0Kt[0K[14G[?25l$ git commit -[0K[?25hm[0K[17G[?25l$ git commit -m "[0K[?25hw[0Ke[0Ke[0Kk[0K[23G[?25l$ git commit -m "week 3[0K[?25h"[0K[?25l
+[0K[?25h[master ce82b0e] week 3[0K[?25l
+ 45 files changed, 1130 insertions(+), 3538 deletions(-)[0K
+ rewrite .RData (99%)[0K
+ rewrite .Rhistory (97%)[0K
+ rewrite .Rproj.user/F116A04A/console06/INDEX001 (100%)[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/per/t/615642F7[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/per/t/615642F7-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/per/t/93CB7DD8[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/per/t/93CB7DD8-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/56CF5BE7[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/56CF5BE7-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/615642F7[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/615642F7-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/93CB7DD8-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/959561F8-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/AB8768CF-contents[0K
+ delete mode 100644 .Rproj.user/F116A04A/sources/s-822648D2/lock_file[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/2BA0150D722DCA91/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/2BA0150DF5F5CBE5/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/c8y18173mq7mx/000002.csv[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/c8y18173mq7mx/000003.metada[0Kt
+a[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/c8y18173mq7mx/000003.png[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/c8y18173mq7mx/000003.snapsh[0Ko
+t[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/csetup_chunk/000004.csv[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/cwzaxmflorzjm/000002.csv[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/cwzaxmflorzjm/000003.metada[0Kt
+a[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/cwzaxmflorzjm/000003.png[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/3D8DB7FA-week52_2019/1/s/cwzaxmflorzjm/000003.snapsh[0Ko
+t[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/F116A04A57B620B5/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/F116A04A57B620B5/cseddcv3duzn[0Kd
+/000016.csv[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/F116A04A5E538AEF/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/F116A04AC6DA559A/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/s/chunks.json[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/s/csetup_chunk/000002.csv[0K
+ delete mode 100644 .Rproj.user/shared/notebooks/40F69BC8-week01_2020/1/s/cwv7pdstvrndu/00000e.csv[0K
+ create mode 100644 .gitignore[0K
+ create mode 100644 docs/week03_2020.html[0K
+ create mode 100644 scr/week03_2020.Rmd[0K
+[0K[?25h[?25l
+[0;32mSchubertJ@KTPRG0361 [0;35m [0;33m~/OneDrive - Kantar/Documents/github/riddler[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git p[0K[?25hu[0Ks[0Kh[0K[12G[?25l$ git push o[0K[?25hr[0Ki[0Kg[0Ki[0Kn[0K[19G[?25l$ git push origin m[0K[?25ha[0Ks[0Kt[0Ke[0Kr[0K[?25l
+[0K[?25hEnumerating objects: 50, done.[0K[?25l
+Counting objects:  50% (25/50)[0K[1G[?25hCounting objects: 100% (50/50), done.[0K[?25l
+Delta compression using up to 4 threads[0K
+Compressing objects:  82% (19/23)[0K[1G[?25hCompressing objects: 100% (23/23), done.[0K[?25l
+Writing objects:  85% (23/27)[0K[1G[?25hWriting objects: 100% (27/27), 288.66 KiB | 3.24 MiB/s, done.[0K[?25l
+Total 27 (delta 9), reused 0 (delta 0)[0K
+[0K[?25hremote: Resolving deltas: 100% (9/9), completed with 9 local objects.[0K[?25l
+[0K[?25hTo https://github.com/schubertjan/riddler.git[0K[?25l
+   f2e3a87..ce82b0e  master -> master[0K
+[0K[?25h[?25l
+[0;32mSchubertJ@KTPRG0361 [0;35m [0;33m~/OneDrive - Kantar/Documents/github/riddler[0;36m (master)[0m[0K[1G[?25h[?25l
+$[0K[3G[?25h
